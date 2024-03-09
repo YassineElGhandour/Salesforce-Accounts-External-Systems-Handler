@@ -6,6 +6,7 @@ public class AccountLinkIntegrationUnitTests {
         public List<AccountLinkHandler.Item> items {get; set;}
     }
 
+    // Prepare a set of 7 accounts that have colors and external Ids
     @testSetup
     static void setup() {
         List<Account> accounts = new List<Account>();
@@ -23,6 +24,7 @@ public class AccountLinkIntegrationUnitTests {
 
     @isTest
     static void testPostAccountExternalIdsWithMalformedJson() {
+        // Setting the value here to -1 would mean that we removed the double quotees (") to malform the JSON and test the exception
         prepareRestRequest(-1);
 
         Test.startTest();

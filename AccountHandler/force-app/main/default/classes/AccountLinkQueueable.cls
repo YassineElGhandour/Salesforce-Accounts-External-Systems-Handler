@@ -7,9 +7,14 @@ public class AccountLinkQueueable implements Queueable {
     }
 
     public void execute(QueueableContext context) {
+        // Populate the account links with the corresponding account Id based on the combination of external Id and color
         prepareAccountLinkLookUps();
+        // Update the account links in the context of this queueable
         AccountLinkDatabaseController.updateAccountLinksWithCorrectAccountId(accountLinksWithAccountIds);
 
+        // Launch a second queueable that will post the matching account link ids and their matching account ids to the external application
+        // Generally it is always better to avoid using !Test.isrunningTest()
+        // In the unit tests, it is not possible to go beyond a maximum depth of 1 stack of queueables, thus the choice of using !Test.isrunningTest()
         if (!Test.isrunningTest()) {
             System.enqueueJob(new AccountLinkOutgoingQueueable(accountLinksWithAccountIds));
         }
