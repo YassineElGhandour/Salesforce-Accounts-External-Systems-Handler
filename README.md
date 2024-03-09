@@ -1,5 +1,5 @@
-# Accounts Links Handler for both incoming and outcoming requests to externall applications
-The objective of this project is to handle incoming accounts from an external party, and insert them in a salesforce organization, then republish them under a public REST API endpoint hosted on salesforce side
+# Accounts Links Handler for both incoming and outcoming requests to external applications
+The objective of this project is to handle incoming account links from an external party, and insert them in a salesforce organization according to the requirements, then post the account links that have been succesfully mapped with existing accounts under a different 3rd application
 
 # Requirements
 Please makes sure that git and sfdx are installed, and update sfdx to the latest version
