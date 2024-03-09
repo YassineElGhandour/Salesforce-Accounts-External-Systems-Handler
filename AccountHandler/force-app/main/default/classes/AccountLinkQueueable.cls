@@ -9,7 +9,6 @@ public class AccountLinkQueueable implements Queueable {
         List<Account_Link__c> accountLinks = prepareAccountLinkLookUps(accountLinks);
         AccountLinkDatabaseController.updateAccountLinksWithCorrectAccountId(accountLinks);
 
-        //
         System.enqueueJob(new AccountLinkOutgoingQueueable(accountLinks));
     }
 

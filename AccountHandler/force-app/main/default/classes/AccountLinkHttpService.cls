@@ -1,9 +1,8 @@
 @RestResource(urlMapping='/accountinbound/*')
-global with sharing class AccountInboundAPI {
+global with sharing class AccountLinkHttpService  {
     @HttpPost
     global static String postAccountExternalIds() {
         String payload = RestContext.request.requestBody.toString();
-
-        return AccountApiHandler.handleIncomingAccountLinks(payload);
+        return AccountLinkIntegrationService.handleIncomingAccountLinks(payload);
     }
 }

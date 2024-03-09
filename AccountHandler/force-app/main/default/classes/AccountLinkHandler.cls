@@ -1,6 +1,6 @@
 public class AccountLinkHandler {
 
-    private class IncomingPayload {
+    private class Payload {
         public List<AccountLink> items {get; set;}
     }
 
@@ -19,7 +19,7 @@ public class AccountLinkHandler {
         String response = '';
         
         try {
-            IncomingPayload incomingPayload = (IncomingPayload) JSON.deserialize(payload, IncomingPayload.class);
+            Payload incomingPayload = (Payload) JSON.deserialize(payload, Payload.class);
             List<AccountLink> items = incomingPayload.items;
             
             response = AccountLinkHelper.handleSuccesfulResponse(items);
@@ -40,20 +40,19 @@ public class AccountLinkHandler {
         request.setHeader('Content-Type', 'application/json');
         
         String requestBody = AccountLinkHelper.prepareRequestBodyFromAccountLinks(accountLinks);
-        System.debug('** requestBody : ' + requestBody);
         request.setBody(requestBody);
 
         try {
             response = http.send(request);
 
             if (response.getStatusCode() == 200) {
-                System.debug('Response: ' + response.getBody());
+                System.debug('Successful http post callout : ' + response.getBody());
             } else {
-                System.debug('HTTP error: ' + response.getStatusCode());
-                System.debug('Error body: ' + response.getBody());
+                System.debug('Code status error: ' + response.getStatusCode());
+                System.debug('Body error : ' + response.getBody());
             }
         } catch (Exception e) {
-            System.debug('An error occurred: ' + e.getMessage());
+            System.debug('Exception error : ' + e.getMessage());
         }
     }
 }

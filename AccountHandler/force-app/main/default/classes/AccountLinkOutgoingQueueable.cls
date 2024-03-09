@@ -6,6 +6,6 @@ public class AccountLinkOutgoingQueueable implements Queueable, Database.AllowsC
     }
 
     public void execute(QueueableContext context) {
-        AccountApiHandler.postOutgoingAccountLinks(accountLinks);
+        AccountLinkIntegrationService.postOutgoingAccountLinks(accountLinks);
     }
 }

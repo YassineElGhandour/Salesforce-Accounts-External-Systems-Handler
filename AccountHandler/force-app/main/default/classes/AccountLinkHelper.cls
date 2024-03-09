@@ -2,7 +2,7 @@ public class AccountLinkHelper {
     public static String handleSuccesfulResponse(List<AccountLinkHandler.AccountLink> items) {
         String response = '';
 
-        if (items.size() > 0 && items.size() < 200) {
+        if (items.size() > 0 && items.size() < 1000) {
             List<Account_Link__c> accountLinks = createAccountLinksFromPayload(items);
             AccountLinkDatabaseController.insertAccountLinksFromPayload(accountLinks);
 
@@ -11,8 +11,8 @@ public class AccountLinkHelper {
             }
 
             response = String.ValueOf(accountLinks.size()) + ' account links are created.';
-        } else if (items.size() >= 200) {
-            response = 'ERROR : The size of the items sent in the payload is more than 200, please reduce the number to match the criteria.';
+        } else if (items.size() >= 1000) {
+            response = 'ERROR : The size of the items sent in the payload is more than 200, please reduce the number to be less than a 1000 items';
         } else {
             response = 'ERROR : No items were found in the payload';
         }
