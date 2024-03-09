@@ -20,7 +20,7 @@ public class AccountLinkHandler {
         
         try {
             Payload incomingPayload = (Payload) JSON.deserialize(payload, Payload.class);
-            List<AccountLink> items = incomingPayload.items;
+            List<AccountLink> items = incomingPayload != null && incomingPayload.items != null ? incomingPayload.items : new List<AccountLink>();
             
             response = AccountLinkHelper.handleSuccesfulResponse(items);
         } catch (System.JSONException e) {
@@ -38,6 +38,7 @@ public class AccountLinkHandler {
         request.setEndpoint(endpoint);
         request.setMethod('POST');
         request.setHeader('Content-Type', 'application/json');
+        request.setTimeOut(120);
         
         String requestBody = AccountLinkHelper.prepareRequestBodyFromAccountLinks(accountLinks);
         request.setBody(requestBody);

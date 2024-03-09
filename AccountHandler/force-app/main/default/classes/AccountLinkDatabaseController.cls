@@ -15,17 +15,6 @@ public with sharing class AccountLinkDatabaseController {
         }
     }
 
-    public static List<Account> getAccountsByExternalIdAndColor(Set<String> externalIds, Set<String> colors) {
-        List<Account> accounts = new List<Account>();
-        Boolean hasReadAccess = Account.sObjectType.getDescribe().isAccessible();
-
-        if (hasReadAccess) {
-            accounts = [SELECT Id, External_Id__c, Color__c FROM Account WHERE External_Id__c IN: externalIds AND Color__c IN: colors];
-        }
-
-        return accounts;
-    }
-
     public static void updateAccountLinksWithCorrectAccountId(List<Account_Link__c> accountLinks) {
         Boolean hasUpdateAccess = Account_Link__c.sObjectType.getDescribe().isUpdateable();
 
@@ -39,5 +28,26 @@ public with sharing class AccountLinkDatabaseController {
                 }
             }
         }
+    }
+
+    public static List<Account> getAccountsByExternalIdAndColor(Set<String> externalIds, Set<String> colors) {
+        List<Account> accounts = new List<Account>();
+        Boolean hasReadAccess = Account.sObjectType.getDescribe().isAccessible();
+
+        if (hasReadAccess) {
+            accounts = [SELECT Id, External_Id__c, Color__c FROM Account WHERE External_Id__c IN: externalIds AND Color__c IN: colors];
+        }
+
+        return accounts;
+    }
+
+    @TestVisible
+    private static List<Account> getAllAccounts() {
+        return [SELECT Id, External_Id__c, Color__c FROM Account WHERE External_Id__c != '' AND Color__c != ''];
+    }
+
+    @TestVisible
+    private static List<Account_Link__c> getAccountLinks() {
+        return [SELECT Id, External_Id__c, Color__c, Account__c FROM Account_Link__c];
     }
 }
