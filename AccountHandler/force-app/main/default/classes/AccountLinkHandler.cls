@@ -2,21 +2,21 @@
     * This is a handler class that manages both incoming and outcoming operations coming from the integration service
 */
 
-public class AccountLinkHandler {
+public with sharing class AccountLinkHandler {
 
     private class Payload {
-        public List<AccountLink> items {get; set;}
+        public List<AccountLink> items { get; set; }
     }
 
-    public class AccountLink {
-        public String color {get; set;}
-        public String externalId {get; set;}
-        public String accountId {get; set;}
+    public with sharing class AccountLink {
+        public String color { get; private set; }
+        public String externalId { get; private set; }
+        public String accountId { get; private set; }
     }
 
-    public class Item {
-        public String accountLinkId {get; set;}
-        public String accountId {get; set;}
+    public with sharing class Item {
+        public String accountLinkId { get; private set; }
+        public String accountId { get; private set; }
     }
 
     public static String createAccountLinksFromPayload(String payload) {

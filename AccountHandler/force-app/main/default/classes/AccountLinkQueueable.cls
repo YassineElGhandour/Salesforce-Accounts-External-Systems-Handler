@@ -1,4 +1,4 @@
-public class AccountLinkQueueable implements Queueable {
+public with sharing class AccountLinkQueueable implements Queueable {
     private List<Account_Link__c> accountLinks {get; set;}
     private List<Account_Link__c> accountLinksWithAccountIds = new List<Account_Link__c>();
 

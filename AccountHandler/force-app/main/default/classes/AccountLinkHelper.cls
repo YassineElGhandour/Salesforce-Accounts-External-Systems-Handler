@@ -2,7 +2,7 @@
     * This is a helper class that facilites the operations in the handler class
 */
 
-public class AccountLinkHelper {
+public with sharing class AccountLinkHelper {
     // This method returns proper response to the external application based on the size of the items sent in the payload
     public static String handleSuccesfulResponse(List<AccountLinkHandler.AccountLink> items) {
         String response = '';

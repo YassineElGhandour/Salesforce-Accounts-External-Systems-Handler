@@ -3,7 +3,7 @@
     * The same service handles posting the results of the first operation in an other external application
 */
 
-public class AccountLinkIntegrationService  {
+public with sharing class AccountLinkIntegrationService  {
     public static String handleIncomingAccountLinks(String payload) {
         return AccountLinkHandler.createAccountLinksFromPayload(payload);
     }    

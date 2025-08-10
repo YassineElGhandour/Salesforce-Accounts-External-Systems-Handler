@@ -1,5 +1,5 @@
 @isTest
-public class AccountLinkIntegrationUnitTests {
+private class AccountLinkIntegrationUnitTests {
     private static List<String> colors = new List<String>{'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet'};
 
     public class OutcomingPayload {
@@ -8,7 +8,7 @@ public class AccountLinkIntegrationUnitTests {
 
     // Prepare a set of 7 accounts that have colors and external Ids
     @testSetup
-    static void setup() {
+    private static void setup() {
         List<Account> accounts = new List<Account>();
 
         for(Integer i = 0; i < 7; i++) {
@@ -23,7 +23,7 @@ public class AccountLinkIntegrationUnitTests {
     }
 
     @isTest
-    static void testPostAccountExternalIdsWithMalformedJson() {
+    private static void testPostAccountExternalIdsWithMalformedJson() {
         // Setting the value here to -1 would mean that we removed the double quotees (") to malform the JSON and test the exception
         prepareRestRequest(-1);
 
@@ -39,7 +39,7 @@ public class AccountLinkIntegrationUnitTests {
     }
 
     @isTest
-    static void testPostAccountExternalIdsWithNoItems() {
+    private static void testPostAccountExternalIdsWithNoItems() {
         prepareRestRequest(0);
 
         Test.startTest();
@@ -53,7 +53,7 @@ public class AccountLinkIntegrationUnitTests {
     }
 
     @isTest
-    static void testPostAccountExternalIdsWith_7_Items() {
+    private static void testPostAccountExternalIdsWith_7_Items() {
         prepareRestRequest(7);
 
         Test.startTest();
@@ -68,7 +68,7 @@ public class AccountLinkIntegrationUnitTests {
     }
 
     @isTest
-    static void testPostAccountExternalIdsWith_300_Items() {
+    private static void testPostAccountExternalIdsWith_300_Items() {
         prepareRestRequest(300);
 
         Test.startTest();
@@ -83,7 +83,7 @@ public class AccountLinkIntegrationUnitTests {
     }
 
     @isTest
-    static void testPublishOutgoingAccountLinks() {
+    private static void testPublishOutgoingAccountLinks() {
         List<Account_Link__c> accountLinks = createAccountLinksWithAccountId();
         String requestBody = AccountLinkHelper.prepareRequestBodyFromAccountLinks(accountLinks);
 

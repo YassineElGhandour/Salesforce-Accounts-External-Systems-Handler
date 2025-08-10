@@ -4,10 +4,11 @@ public with sharing class AccountLinkDatabaseController {
         Boolean hasCreateAccess = Account_Link__c.sObjectType.getDescribe().isCreateable();
 
         if (hasCreateAccess) {
-            Database.SaveResult[] saveResults = Database.insert(accountLinks, false);
+            Boolean allOrNothing = false;
+            Database.SaveResult[] saveResults = Database.insert(accountLinks, allOrNothing, AccessLevel.USER_MODE);
             for (Database.SaveResult sr : saveResults) {
                 if (sr.isSuccess()) {
-                    System.debug('Successfully inserted account links. Record ID: ' + sr.getId());
+                    System.debug('AccountLinkDatabaseController => Successfully inserted account links with Record ID: ' + sr.getId());
                 } else {
                     System.debug('Error: ' + sr.getErrors()[0].getMessage());
                 }
@@ -19,7 +20,8 @@ public with sharing class AccountLinkDatabaseController {
         Boolean hasUpdateAccess = Account_Link__c.sObjectType.getDescribe().isUpdateable();
 
         if (hasUpdateAccess) {
-            Database.SaveResult[] saveResults = Database.update(accountLinks, false);
+            Boolean allOrNothing = false;
+            Database.SaveResult[] saveResults = Database.update(accountLinks, allOrNothing, AccessLevel.USER_MODE);
             for (Database.SaveResult sr : saveResults) {
                 if (sr.isSuccess()) {
                     System.debug('Successfully update account links with the correct account Id. Record ID: ' + sr.getId());
@@ -35,7 +37,7 @@ public with sharing class AccountLinkDatabaseController {
         Boolean hasReadAccess = Account.sObjectType.getDescribe().isAccessible();
 
         if (hasReadAccess) {
-            accounts = [SELECT Id, External_Id__c, Color__c FROM Account WHERE External_Id__c IN: externalIds AND Color__c IN: colors];
+            accounts = [SELECT Id, External_Id__c, Color__c FROM Account WHERE External_Id__c IN: externalIds AND Color__c IN: colors WITH USER_MODE];
         }
 
         return accounts;
@@ -43,11 +45,11 @@ public with sharing class AccountLinkDatabaseController {
 
     @TestVisible
     private static List<Account> getAllAccounts() {
-        return [SELECT Id, External_Id__c, Color__c FROM Account WHERE External_Id__c != '' AND Color__c != ''];
+        return [SELECT Id, External_Id__c, Color__c FROM Account WHERE External_Id__c != '' AND Color__c != '' WITH USER_MODE];
     }
 
     @TestVisible
     private static List<Account_Link__c> getAccountLinks() {
-        return [SELECT Id, External_Id__c, Color__c, Account__c FROM Account_Link__c];
+        return [SELECT Id, External_Id__c, Color__c, Account__c FROM Account_Link__c WITH USER_MODE];
     }
 }

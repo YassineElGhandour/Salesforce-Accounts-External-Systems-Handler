@@ -1,5 +1,5 @@
 @isTest
-public class AccountLinkCalloutMockups implements HttpCalloutMock {
+public with sharing class AccountLinkCalloutMockups implements HttpCalloutMock {
     private String requestBody { get; set;}
 
     public AccountLinkCalloutMockups(String requestBody) {
